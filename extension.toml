@@ -1,0 +1,13 @@
+id = "web3-dev"
+name = "Web3 Development"
+version = "0.1.0"
+schema_version = 1
+authors = ["Your Name <you@example.com>"]
+description = "Web3 development support for Solidity, Foundry, and Hardhat"
+repository = "https://github.com/your-username/web3-dev-zed"
+wasm = "wasm/web3_dev.wasm"
+
+[commands]
+"new-contract" = "Create a new Solidity contract"
+"new-hardhat-config" = "Create a new Hardhat configuration file"
+"new-foundry-config" = "Create a new Foundry configuration file"

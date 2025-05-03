@@ -1,0 +1,102 @@
+==================
+Simple Contract
+==================
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SimpleStorage {
+    uint256 private value;
+
+    event ValueChanged(uint256 newValue);
+
+    constructor(uint256 initialValue) {
+        value = initialValue;
+    }
+
+    function setValue(uint256 newValue) public {
+        value = newValue;
+        emit ValueChanged(newValue);
+    }
+
+    function getValue() public view returns (uint256) {
+        return value;
+    }
+}
+
+---
+
+(source_file
+  (comment)
+  (pragma_directive
+    (solidity_version
+      (version_constraint)))
+  (contract_definition
+    (identifier)
+    (state_variable_declaration
+      (type_name
+        (elementary_type_name))
+      (identifier))
+    (event_definition
+      (identifier)
+      (event_parameter_list
+        (event_parameter
+          (type_name
+            (elementary_type_name))
+          (identifier))))
+    (constructor_definition
+      (parameter_list
+        (parameter
+          (type_name
+            (elementary_type_name))
+          (identifier)))
+      (function_body
+        (block
+          (expression_statement
+            (assignment
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (identifier))))))))
+    (function_definition
+      (identifier)
+      (parameter_list
+        (parameter
+          (type_name
+            (elementary_type_name))
+          (identifier)))
+      (function_body
+        (block
+          (expression_statement
+            (assignment
+              (expression
+                (primary_expression
+                  (identifier)))
+              (expression
+                (primary_expression
+                  (identifier)))))
+          (expression_statement
+            (emit_statement
+              (function_call
+                (primary_expression
+                  (identifier))
+                (function_call_arguments
+                  (expression
+                    (primary_expression
+                      (identifier))))))))))
+    (function_definition
+      (identifier)
+      (parameter_list)
+      (return_parameters
+        (parameter_list
+          (parameter
+            (type_name
+              (elementary_type_name)))))
+      (function_body
+        (block
+          (return_statement
+            (expression
+              (primary_expression
+                (identifier)))))))))

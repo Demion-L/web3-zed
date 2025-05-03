@@ -1,0 +1,19 @@
+name = "Hardhat"
+path_suffixes = ["hardhat.config.js", "hardhat.config.ts"]
+scope = "source.js"
+tree_sitter_library = "tree-sitter-javascript"
+highlights = "highlights.scm"
+indent = { tab_width = 2, unit = "  " }
+
+line = "//"
+block = { start = "/*", end = "*/" }
+brackets = [
+    { start = "{", end = "}", scope = "punctuation.bracket" },
+    { start = "[", end = "]", scope = "punctuation.bracket" },
+    { start = "(", end = ")", scope = "punctuation.bracket" },
+]
+
+[language_server]
+name = "typescript-language-server"
+command = "typescript-language-server"
+args = ["--stdio"]

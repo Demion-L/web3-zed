@@ -1,0 +1,22 @@
+name = "Solidity"
+tree_sitter_library = "solidity.wasm"
+path_suffixes = ["sol"]
+first_line_pattern = "pragma\\s+solidity"
+scope = "source.solidity"
+language_server = "solc"
+indent = { tab_width = 4, unit = "    " }
+highlights = "highlights.scm"
+
+[comment]
+line = "//"
+block = { start = "/*", end = "*/" }
+
+brackets = [
+    { start = "{", end = "}", scope = "punctuation.bracket" },
+    { start = "[", end = "]", scope = "punctuation.bracket" },
+    { start = "(", end = ")", scope = "punctuation.bracket" },
+]
+
+[language_servers.solc]
+command = "solidity-language-server"
+args = ["--stdio"]
