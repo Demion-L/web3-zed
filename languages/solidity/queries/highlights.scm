@@ -206,6 +206,14 @@
   ] @type
 )
 
+;; Security keywords (foundry/hardhat tests)
+(
+  [
+    "gasleft" "balance" "send" "call" "delegatecall"
+    "selfdestruct" "suicide" "blockhash" "tx.origin"
+  ] @warning
+)
+
 ;; Literals
 (number_literal) @number
 (string_literal) @string

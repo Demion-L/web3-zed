@@ -20,3 +20,10 @@
   (#match? @contract_name "Test$")
   (#set! tag solidity-test-contract)
 )
+
+(
+  (function_definition
+    (identifier) @run @setup_name
+    (#eq? @setup_name "setUp"))
+  (#set! tag solidity-setup)
+)

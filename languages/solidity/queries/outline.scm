@@ -38,3 +38,9 @@
 
 ; Modifiers for outline items
 (natspec_comment) @annotation
+
+; Foundry/Hardhat test markers
+(contract_declaration
+  (identifier) @name
+  (#match? @name "Test$|^Test")
+  (#set! item.test true))

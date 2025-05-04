@@ -4,6 +4,14 @@ path_suffixes = ["sol"]
 first_line_pattern = "^\\s*pragma\\s+solidity"
 line_comments = ["// "]
 block_comments = ["/*", "*/"]
+indent_units = 4 # Explicitly match Solidity's 4-space standard
+auto_indent_patterns = [
+    "^\\s*(function|contract|if|for|while|do|struct)",
+] # Smart indentation triggers
+word_characters = ["_", "$"]
+tab_size = 4
+hard_tabs = false
+
 brackets = [
     { start = "{", end = "}", completion = true, newline = true },
     { start = "[", end = "]", completion = true, newline = true },
@@ -11,10 +19,21 @@ brackets = [
     { start = "\"", end = "\"", completion = true, newline = false },
     { start = "'", end = "'", completion = true, newline = false },
 ]
-word_characters = ["_", "$"]
-tab_size = 4
-hard_tabs = false
 
 [language_servers.solidity]
 name = "Solidity Language Server"
 languages = ["Solidity"]
+
+[language]
+completion_triggers = [
+    { trigger = "function ", completions = [
+        "public",
+        "private",
+        "external",
+        "internal",
+    ] },
+    { trigger = "contract ", completions = [
+        "is",
+        "import",
+    ] },
+]

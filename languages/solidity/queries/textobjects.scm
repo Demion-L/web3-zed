@@ -1,3 +1,9 @@
+(
+  (function_definition
+    (identifier) @run @setup_name
+    (#eq? @setup_name "setUp"))
+  (#set! tag solidity-setup)
+)
 ; Function objects
 (function_definition) @function.around
 
