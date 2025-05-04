@@ -1,8 +1,16 @@
 name = "Hardhat Config"
 grammar = "javascript"
-path_suffixes = []
 file_types = ["hardhat.config.js", "hardhat.config.ts"]
 line_comments = ["// "]
+word_characters = ["_", "$"]
+tab_size = 2
+hard_tabs = false
+indent_units = 2
+
+# Smart indentation for JS/TS configs
+indent_patterns = [{ match = "^\\s*(\\{|\\()", until = "^\\s*(\\}|\\))" }]
+
+# Brackets (keep your existing setup)
 brackets = [
     { start = "{", end = "}", completion = true, newline = true },
     { start = "[", end = "]", completion = true, newline = true },
@@ -11,6 +19,13 @@ brackets = [
     { start = "'", end = "'", completion = true, newline = false },
     { start = "`", end = "`", completion = true, newline = false },
 ]
-word_characters = ["_", "$"]
-tab_size = 2
-hard_tabs = false
+
+# Future LSP support
+[language]
+completion_triggers = [
+    { trigger = "config.", completions = [
+        "networks",
+        "solidity",
+        "paths",
+    ] },
+]
