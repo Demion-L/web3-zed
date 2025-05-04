@@ -1,0 +1,32 @@
+name = "Foundry Config"
+grammar = "toml"
+path_suffixes = []
+file_types = ["foundry.toml"]
+indent_units = 2
+line_comments = ["# "]
+brackets = [
+    { start = "{", end = "}", completion = true, newline = true },
+    { start = "[", end = "]", completion = true, newline = true },
+    { start = "(", end = ")", completion = true, newline = true },
+    { start = "\"", end = "\"", completion = true, newline = false },
+    { start = "'", end = "'", completion = true, newline = false },
+]
+
+[language]
+completion_triggers = [
+    { trigger = "profile.", completions = [
+        "default",
+        "ci",
+        "dev",
+    ] },
+    { trigger = "fmt.", completions = [
+        "header",
+        "line_length",
+    ] },
+    { trigger = "solc.", completions = [
+        "version",
+        "optimizer",
+    ] },
+]
+tab_size = 2
+hard_tabs = false

@@ -1,115 +1,73 @@
-# Web3 Development Extension for Zed
+# Web3 Extension for Zed
 
-This Zed extension provides support for Web3 development with Solidity, Foundry, and Hardhat.
+This extension adds support for Web3 development in the Zed editor, with primary focus on:
+
+- Solidity language support
+- Hardhat framework integration
+- Foundry framework integration
 
 ## Features
 
-### Language Support
-- **Solidity**: Syntax highlighting and language server integration for `.sol` files
-- **Hardhat**: Configuration file recognition for `hardhat.config.js` and `hardhat.config.ts`
-- **Foundry**: TOML configuration support for `foundry.toml`
+### Solidity Language Support
 
-### Slash Commands
-The extension provides several useful slash commands for Web3 development:
+- Syntax highlighting for Solidity (.sol) files
+- Code navigation
+- Smart code completion
+- Auto-indentation
+- Bracket matching
+- Code outline/structure view
+- Vim textobjects support
 
-- `/new-contract`: Create a new Solidity contract template
-- `/new-hardhat-config`: Create a new Hardhat configuration file
-- `/new-foundry-config`: Create a new Foundry configuration file
+### Hardhat Integration
+
+- Automatic detection of Hardhat projects
+- Language server integration with hardhat-language-server
+- Recognition of hardhat.config.js and hardhat.config.ts files
+
+### Foundry Integration
+
+- Automatic detection of Foundry projects
+- Language server integration with nomicfoundation-solidity-language-server
+- Recognition of foundry.toml configuration files
 
 ## Installation
 
-### Development Installation
+### From Zed Extension Registry
 
-1. Clone this repository:
-   ```
-   git clone https://github.com/your-username/web3-dev-zed.git
-   cd web3-dev-zed
-   ```
+1. Open Zed
+2. Open the extensions view (Cmd+Shift+E or Ctrl+Shift+E)
+3. Search for "Web3"
+4. Click "Install"
 
-2. Install dependencies:
-   ```
-   make deps
-   ```
+### As Dev Extension
 
-3. Build the extension:
-   ```
-   make
-   ```
-
-4. Open Zed and navigate to the Extensions panel
-5. Click "Install Dev Extension" and select the cloned directory
-
-### Directory Structure
-
-```
-web3-dev/
-  ├── extension.toml       # Extension configuration
-  ├── Cargo.toml           # Rust dependencies for WebAssembly
-  ├── Makefile             # Build automation
-  ├── src/                 # Rust source code
-  │   └── lib.rs           # WebAssembly implementation
-  ├── languages/           # Language support
-  │   ├── solidity/        # Solidity language support
-  │   │   ├── config.toml  # Language configuration
-  │   │   ├── highlights.scm  # Syntax highlighting rules
-  │   │   └── solidity.wasm  # Generated parser (after build)
-  │   ├── hardhat/         # Hardhat configuration support
-  │   │   └── config.toml  # Language configuration
-  │   └── foundry/         # Foundry configuration support
-  │       ├── config.toml  # Language configuration
-  │       └── highlights.scm  # Syntax highlighting rules
-  ├── tree-sitter-solidity/ # Tree-sitter grammar for Solidity
-  │   ├── grammar.js       # Grammar definition
-  │   ├── package.json     # Node.js dependencies
-  │   └── test/            # Grammar tests
-  └── wasm/                # Generated WebAssembly files (after build)
-      └── web3_dev.wasm    # Extension WebAssembly (after build)
+1. Clone this repository
+```bash
+git clone https://github.com/your-username/web3-zed.git
 ```
 
-### Requirements
+2. Open Zed
+3. Open the extensions view (Cmd+Shift+E or Ctrl+Shift+E)
+4. Click "Install Dev Extension"
+5. Select the cloned repository directory
 
-- For development, you'll need:
-  - [Rust](https://www.rust-lang.org/) installed via rustup
-  - [Node.js](https://nodejs.org/) and npm
-  - tree-sitter-cli: `npm install -g tree-sitter-cli`
+## Prerequisites
 
-- For full functionality in Zed, you'll need to install:
-  - Solidity Language Server: `npm install -g solidity-language-server`
-  - TypeScript Language Server: `npm install -g typescript typescript-language-server`
+To fully utilize this extension, you should have:
 
-## Building Tree-Sitter Grammar
+1. Node.js and npm installed for running the language servers
+2. For Hardhat projects: Install hardhat in your project (`npm install --save-dev hardhat`)
+3. For Foundry projects: Install Foundry according to the [official documentation](https://book.getfoundry.sh/getting-started/installation)
 
-The extension uses a custom Tree-sitter grammar for Solidity. To build it manually:
+## Language Server Configuration
 
-1. Navigate to the tree-sitter-solidity directory:
-   ```
-   cd tree-sitter-solidity
-   ```
+This extension will automatically:
 
-2. Install dependencies:
-   ```
-   npm install
-   ```
+- Detect if your project is a Hardhat project (by checking for hardhat.config.js or hardhat.config.ts)
+- Detect if your project is a Foundry project (by checking for foundry.toml)
+- Use the appropriate language server based on the detected framework
 
-3. Generate the parser:
-   ```
-   npm run build
-   ```
-
-4. Build the WebAssembly file:
-   ```
-   npm run build-wasm
-   ```
-
-5. Copy the WebAssembly file to the languages directory:
-   ```
-   mkdir -p ../languages/solidity
-   cp tree-sitter-solidity.wasm ../languages/solidity/solidity.wasm
-   ```
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+If neither is detected, it will default to the Nomicfoundation Solidity Language Server.
 
 ## License
 

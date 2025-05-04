@@ -1,19 +1,16 @@
-name = "Hardhat"
-path_suffixes = ["hardhat.config.js", "hardhat.config.ts"]
-scope = "source.js"
-tree_sitter_library = "tree-sitter-javascript"
-highlights = "highlights.scm"
-indent = { tab_width = 2, unit = "  " }
-
-line = "//"
-block = { start = "/*", end = "*/" }
+name = "Hardhat Config"
+grammar = "javascript"
+path_suffixes = []
+file_types = ["hardhat.config.js", "hardhat.config.ts"]
+line_comments = ["// "]
 brackets = [
-    { start = "{", end = "}", scope = "punctuation.bracket" },
-    { start = "[", end = "]", scope = "punctuation.bracket" },
-    { start = "(", end = ")", scope = "punctuation.bracket" },
+    { start = "{", end = "}", completion = true, newline = true },
+    { start = "[", end = "]", completion = true, newline = true },
+    { start = "(", end = ")", completion = true, newline = true },
+    { start = "\"", end = "\"", completion = true, newline = false },
+    { start = "'", end = "'", completion = true, newline = false },
+    { start = "`", end = "`", completion = true, newline = false },
 ]
-
-[language_server]
-name = "typescript-language-server"
-command = "typescript-language-server"
-args = ["--stdio"]
+word_characters = ["_", "$"]
+tab_size = 2
+hard_tabs = false

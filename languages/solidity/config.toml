@@ -1,22 +1,20 @@
 name = "Solidity"
-tree_sitter_library = "solidity.wasm"
+grammar = "solidity"
 path_suffixes = ["sol"]
-first_line_pattern = "pragma\\s+solidity"
-scope = "source.solidity"
-language_server = "solc"
-indent = { tab_width = 4, unit = "    " }
-highlights = "highlights.scm"
-
-[comment]
-line = "//"
-block = { start = "/*", end = "*/" }
-
+first_line_pattern = "^\\s*pragma\\s+solidity"
+line_comments = ["// "]
+block_comments = ["/*", "*/"]
 brackets = [
-    { start = "{", end = "}", scope = "punctuation.bracket" },
-    { start = "[", end = "]", scope = "punctuation.bracket" },
-    { start = "(", end = ")", scope = "punctuation.bracket" },
+    { start = "{", end = "}", completion = true, newline = true },
+    { start = "[", end = "]", completion = true, newline = true },
+    { start = "(", end = ")", completion = true, newline = true },
+    { start = "\"", end = "\"", completion = true, newline = false },
+    { start = "'", end = "'", completion = true, newline = false },
 ]
+word_characters = ["_", "$"]
+tab_size = 4
+hard_tabs = false
 
-[language_servers.solc]
-command = "solidity-language-server"
-args = ["--stdio"]
+[language_servers.solidity]
+name = "Solidity Language Server"
+languages = ["Solidity"]
