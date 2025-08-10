@@ -1,0 +1,152 @@
+{
+  "ERC20 Template": {
+    "prefix": "erc20",
+    "body": [
+      "contract ${1:Token} is IERC20 {",
+      "    string public constant name = \"${2:Token}\";",
+      "    string public constant symbol = \"${3:TKN}\";",
+      "    uint8 public constant decimals = ${4:18};",
+      "",
+      "    mapping(address => uint256) private _balances;",
+      "    mapping(address => mapping(address => uint256)) private _allowances;",
+      "    uint256 private _totalSupply;",
+      "",
+      "    constructor(uint256 initialSupply) {",
+      "        _mint(msg.sender, initialSupply);",
+      "    }",
+      "",
+      "    // ================= IERC20 Functions ================= //",
+      "    function totalSupply() public view override returns (uint256) {",
+      "        return _totalSupply;",
+      "    }",
+      "",
+      "    function balanceOf(address account) public view override returns (uint256) {",
+      "        return _balances[account];",
+      "    }",
+      "",
+      "    ${0}",
+      "    // ... Implement transfer/approve/transferFrom",
+      "}"
+    ],
+    "description": "Standard ERC20 token implementation"
+  },
+
+  "Foundry Test Setup": {
+    "prefix": "foundry-test",
+    "body": [
+      "import \"forge-std/Test.sol\";",
+      "",
+      "contract ${1:MyContract}Test is Test {",
+      "    ${2:MyContract} public myContract;",
+      "    address user = makeAddr(\"user\");",
+      "",
+      "    function setUp() public {",
+      "        myContract = new ${2:MyContract}();",
+      "        deal(address(myContract), user, ${3:1 ether});",
+      "    }",
+      "",
+      "    function test_${4:Feature}() public {",
+      "        vm.prank(user);",
+      "        ${0}",
+      "    }",
+      "}"
+    ],
+    "description": "Foundry test contract with basic setup"
+  },
+
+  "Hardhat Deploy Script": {
+    "prefix": "hh-deploy",
+    "body": [
+      "const hre = require(\"hardhat\");",
+      "",
+      "async function main() {",
+      "    const [deployer] = await hre.ethers.getSigners();",
+      "    console.log(\"Deploying contracts with account:\", deployer.address);",
+      "",
+      "    const ${1:Contract} = await hre.ethers.getContractFactory(\"${2:MyContract}\");",
+      "    const ${3:contract} = await ${1:Contract}.deploy(${4:constructorArgs});",
+      "",
+      "    await ${3:contract}.deployed();",
+      "    console.log(\"${2:MyContract} deployed to:\", ${3:contract}.address);",
+      "    ${0}",
+      "}",
+      "",
+      "main().catch((error) => {",
+      "    console.error(error);",
+      "    process.exitCode = 1;",
+      "});"
+    ],
+    "description": "Hardhat deployment script template"
+  },
+
+  "Reentrancy Guard": {
+    "prefix": "nonreentrant",
+    "body": [
+      "import \"@openzeppelin/contracts/security/ReentrancyGuard.sol\";",
+      "",
+      "contract ${1:MyContract} is ReentrancyGuard {",
+      "    function ${2:secureFunction}() external nonReentrant {",
+      "        ${0}",
+      "    }",
+      "}"
+    ],
+    "description": "Add reentrancy protection to a function"
+  },
+
+  "NatSpec Documentation": {
+    "prefix": "natspec",
+    "body": [
+      "/**",
+      " * @title ${1:Function Purpose}",
+      " * @author ${2:YourName}",
+      " * @notice ${3:What it does}",
+      " * @dev ${4:Technical details}",
+      " * @param ${5:paramName} ${6:Description}",
+      " * @return ${7:returnValue} ${8:Description}",
+      " */"
+    ],
+    "description": "Complete NatSpec documentation block"
+  },
+
+  "Custom Error": {
+    "prefix": "error",
+    "body": ["error ${1:CustomError}(${2:uint256 value});"],
+    "description": "Define a custom error type"
+  },
+
+  "SafeMath Check": {
+    "prefix": "safecheck",
+    "body": ["if (${1:value} == 0) revert ${2:ZeroAmount}();", "${0}"],
+    "description": "Input validation with custom error"
+  },
+
+  "Event Emission": {
+    "prefix": "event",
+    "body": [
+      "event ${1:EventName}(${2:address indexed sender}, ${3:uint256 value});"
+    ],
+    "description": "Define and emit an event"
+  },
+
+  "Modifier": {
+    "prefix": "modifier",
+    "body": [
+      "modifier ${1:onlyOwner}() {",
+      "    require(msg.sender == owner, \"Not owner\");",
+      "    _;",
+      "}"
+    ],
+    "description": "Create an access control modifier"
+  },
+
+  "Foundry Fuzz Test": {
+    "prefix": "fuzz",
+    "body": [
+      "function testFuzz_${1:Feature}(uint256 ${2:input}) public {",
+      "    vm.assume(${2:input} <= ${3:1000});",
+      "    ${0}",
+      "}"
+    ],
+    "description": "Foundry fuzz testing template"
+  }
+}

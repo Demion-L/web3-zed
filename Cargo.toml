@@ -1,12 +1,22 @@
 [package]
-name = "web3-dev"
+name = "zed-web3"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+description = "A web3 library for Zed"
+readme = "README.md"
 
 [lib]
 crate-type = ["cdylib"]
 
 [dependencies]
-zed_extension_api = "0.5.0"
+zed_extension_api = { version = "0.5.0", features = ["wasm"] }
 tree-sitter = "0.20"
 tree-sitter-solidity = "0.3.0"
+
+anyhow = "1.0"
+thiserror = "1.0"
+log = "0.4"
+
+[build-dependencies]
+anyhow = "1.0"

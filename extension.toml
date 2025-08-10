@@ -1,11 +1,24 @@
 id = "web3"
-name = "Web3"
+name = "Web3 Development Suite"
 version = "0.0.1"
 schema_version = 1
 authors = ["Demion La <pradovd4@gmail.com>"]
-description = "Web3 development support with Solidity, Hardhat, and Foundry integration"
+description = """
+Professional Solidity development environment with:
+- Advanced syntax highlighting
+- Foundry/Hardhat workflow integration
+- Security scanning tools
+"""
 repository = "https://github.com/Demion-L/web3-zed"
+license = "MIT"
+categories = ["language-support", "web3"]
 
 [grammars.solidity]
 repository = "https://github.com/JoranHonig/tree-sitter-solidity"
 rev = "9e963f739ca341209aff2175b5beb9c1749c578e"
+wasm = true
+
+# LSP configuration (future-proofing)
+[language_servers.solidity]
+command = "npx"
+args = ["hardhat", "node"]

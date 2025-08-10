@@ -1,41 +1,71 @@
-.PHONY: all clean build tree-sitter extension
+.PHONY: all clean build tree-sitter extension deps test format
 
-all: build
+# Build everything
+all: deps build
 
+# Full build pipeline
 build: tree-sitter extension
+	@echo "✅ Build complete"
 
-# Build the tree-sitter grammar
+# --- Tree-sitter Grammar ---
+TREE_SITTER_DIR := tree-sitter-solidity
+GRAMMAR_WASM := languages/solidity/solidity.wasm
+
 tree-sitter:
-	@echo "Building tree-sitter grammar for Solidity..."
-	cd tree-sitter-solidity && npm install
-	cd tree-sitter-solidity && npm run build
-	cd tree-sitter-solidity && npm run build-wasm
-	@mkdir -p languages/solidity
-	@cp tree-sitter-solidity/tree-sitter-solidity.wasm languages/solidity/solidity.wasm
-	@echo "Tree-sitter grammar built successfully"
+	@echo "🔨 Building tree-sitter grammar..."
+	@cd $(TREE_SITTER_DIR) && \
+		npm ci --omit=dev && \
+		npm run build && \
+		npm run build-wasm
+	@mkdir -p $(dir $(GRAMMAR_WASM))
+	@cp $(TREE_SITTER_DIR)/tree-sitter-solidity.wasm $(GRAMMAR_WASM)
+	@echo "🌲 Tree-sitter grammar ready"
 
-# Build the WebAssembly portion of the extension
+# --- Extension Build ---
+WASM_TARGET := target/wasm32-unknown-unknown/release/web3_dev.wasm
+OUT_WASM := wasm/web3_dev.wasm
+
 extension:
-	@echo "Building WebAssembly for extension..."
-	cargo build --target wasm32-unknown-unknown --release
+	@echo "🦀 Building Rust extension..."
+	@cargo build --target wasm32-unknown-unknown --release
 	@mkdir -p wasm
-	@cp target/wasm32-unknown-unknown/release/web3_dev.wasm wasm/
-	@echo "Extension WebAssembly built successfully"
+	@cp $(WASM_TARGET) $(OUT_WASM)
+	@echo "📦 WASM artifact ready at $(OUT_WASM)"
 
-# Clean build artifacts
+# --- Quality Control ---
+test:
+	@echo "🧪 Running tests..."
+	@cargo test
+	@cd $(TREE_SITTER_DIR) && npm test
+
+format:
+	@echo "🎨 Formatting code..."
+	@cargo fmt --all
+	@cd $(TREE_SITTER_DIR) && npx prettier --write .
+
+# --- Cleanup ---
 clean:
+	@echo "🧹 Cleaning build artifacts..."
 	@rm -rf target
-	@rm -rf tree-sitter-solidity/node_modules
-	@rm -f tree-sitter-solidity/tree-sitter-solidity.wasm
-	@rm -f languages/solidity/solidity.wasm
+	@rm -rf $(TREE_SITTER_DIR)/node_modules
+	@rm -f $(TREE_SITTER_DIR)/tree-sitter-solidity.wasm
+	@rm -f $(GRAMMAR_WASM)
 	@rm -rf wasm
-	@echo "Cleaned build artifacts"
+	@echo "✨ Clean complete"
 
-# Install dependencies
+# --- Dependencies ---
 deps:
-	@echo "Installing dependencies..."
-	@command -v rustup >/dev/null 2>&1 || { echo "Please install Rust via rustup: https://rustup.rs"; exit 1; }
+	@echo "📦 Checking dependencies..."
+
+	# Rust toolchain
+	@command -v rustup >/dev/null 2>&1 || { echo "❌ Please install Rust via rustup: https://rustup.rs"; exit 1; }
 	@rustup target add wasm32-unknown-unknown
-	@command -v npm >/dev/null 2>&1 || { echo "Please install Node.js and npm: https://nodejs.org"; exit 1; }
+
+	# Node.js
+	@command -v npm >/dev/null 2>&1 || { echo "❌ Please install Node.js: https://nodejs.org"; exit 1; }
 	@npm install -g tree-sitter-cli
-	@echo "Dependencies installed successfully"
+
+	# Tree-sitter project deps
+	@cd $(TREE_SITTER_DIR) && npm ci --omit=dev
+
+	@echo "✔️  All dependencies ready"

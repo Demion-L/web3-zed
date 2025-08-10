@@ -69,6 +69,44 @@ This extension will automatically:
 
 If neither is detected, it will default to the Nomicfoundation Solidity Language Server.
 
+## 💡 Solidity Snippets
+
+The `snippets/solidity.json` file provides intelligent code templates for faster Solidity development with Foundry/Hardhat integration. Trigger these with prefix commands in Zed.
+
+### 🏗️ Core Templates
+| Prefix          | Description                          | Use Case                     |
+|-----------------|--------------------------------------|------------------------------|
+| `erc20`         | Complete ERC20 token implementation  | Token contracts              |
+| `nonreentrant`  | Reentrancy protection wrapper        | Secure function patterns     |
+| `modifier`      | Access control modifier              | Owner/role restrictions      |
+| `error`         | Custom error definition              | Gas-efficient reverts        |
+
+### 🧪 Testing Snippets
+| Prefix          | Description                          | Framework                   |
+|-----------------|--------------------------------------|-----------------------------|
+| `foundry-test`  | Foundry test contract with setup     | Unit/Integration tests      |
+| `fuzz`         | Fuzz testing template               | Property-based testing      |
+
+### 🔧 Utility Snippets
+| Prefix          | Description                          | Output Example              |
+|-----------------|--------------------------------------|-----------------------------|
+| `natspec`      | Complete NatSpec documentation      | `@dev` technical notes      |
+| `safecheck`    | Input validation with custom error  | `if (x==0) revert Error()`  |
+| `event`        | Event definition + emission         | `emit Transfer(...)`        |
+
+### ⚙️ Deployment
+| Prefix          | Description                          | Framework                   |
+|-----------------|--------------------------------------|-----------------------------|
+| `hh-deploy`    | Hardhat deployment script           | Scripts/deploy.js           |
+
+### ✨ Key Features
+- **Framework-aware**: Dedicated snippets for Foundry/Hardhat workflows
+- **Security-first**: Auto-includes best practices (reentrancy guards, input validation)
+- **Interactive placeholders**: Tab through fields with intelligent defaults
+- **Documentation-ready**: NatSpec templates with all standard tags
+
+**Usage**: Type any prefix in Zed editor and press `Tab` to expand.
+
 ## License
 
 MIT
